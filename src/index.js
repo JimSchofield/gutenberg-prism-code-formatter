@@ -5,6 +5,7 @@ import Prism from 'prismjs';
 
     const { addFilter } = wp.hooks;
     const { PlainText } = wp.editor;
+    const { SelectControl } = wp.components;
 
     const extendCodeBlock = ( settings ) => {
 
