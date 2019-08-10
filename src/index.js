@@ -1,5 +1,5 @@
 import './style.scss';
-import Prism from 'prismjs';
+import Prism from '../vendor/prism';
 
 ( function( wp ) {
 
@@ -13,23 +13,52 @@ import Prism from 'prismjs';
             return settings;
         }
 
+        const prismLanguagesMap = [
+            { label: 'Javascript', value: 'javascript' },
+            { label: 'CSS', value: 'css' },
+            { label: 'HTML/markup', value: 'markup' },
+            { label: 'SCSS', value: 'scss' },
+            { label: 'JSON', value: 'json' },
+            { label: 'JSX', value: 'jsx' },
+            { label: 'TSX', value: 'tsx' },
+            { label: 'TypeScript', value: 'ts' },
+            { label: 'Rust', value: 'rust' },
+            { label: 'Python', value: 'python' },
+            { label: 'PHP', value: 'php' },
+            { label: 'C++', value: 'cpp'}
+        ]
+
         const newSettings = {
             ...settings,
+            attributes: {
+                ...settings.attributes,
+                language: {
+                    type: 'string',
+                }
+            },
             edit(props) {
-                const { content } = props.attributes;
+                const { content, language } = props.attributes;
                 const { setAttributes } = props;
 
                 return (
                     <div className="pcf--container">
+                        <div className="wp-block-code__options">
+                            <SelectControl
+                                label="Select language:"
+                                value={language}
+                                onChange={ language => setAttributes( { language } ) }
+                                options={ prismLanguagesMap }
+                            />
+                        </div>
                         {settings.edit(props)}
-                        <div className="wp-bloc-code__preview">
+                        <div className="wp-block-code__preview">
                             Preview:
-                            <pre className={`language-javascript`}>
+                            <pre className={`language-${language}`}>
                                 <code
-                                    className={`language-javascript`}
+                                    className={`language-${language}`}
                                     dangerouslySetInnerHTML={
                                         { 
-                                            __html: Prism.highlight(props.attributes.content, Prism.languages.javascript),
+                                            __html: Prism.highlight( props.attributes.content, Prism.languages[language], language),
                                         }   
                                     }
                                 >
@@ -40,15 +69,15 @@ import Prism from 'prismjs';
                 );
             },
             save(props) {
-                const { content } = props.attributes;
+                const { content, language } = props.attributes;
 
                 return (
-                    <pre className={`language-javascript`}>
+                    <pre className={`language-${language}`}>
                         <code
-                            className={`language-javascript`}
+                            className={`language-${language}`}
                             dangerouslySetInnerHTML={
                                 { 
-                                    __html: Prism.highlight(props.attributes.content, Prism.languages.javascript),
+                                    __html: Prism.highlight( props.attributes.content, Prism.languages[language] ),
                                 }   
                             }
                         >

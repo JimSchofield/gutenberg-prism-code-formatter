@@ -4,9 +4,9 @@ A core/code plugin that extends the core block and highlights syntax with Prism.
 
 ## To use
 
-1) Clone or download to plugin directory
-2) Activate in WordPress plugins
-3) Use the regular code block in the editor (with gutenberg enabled)
+1) Clone or download to `public/wp-content/plugins/` directory
+2) Activate in WordPress admin in the plugins page
+3) Use the regular code block in the editor
 
 ## To develop against
 
