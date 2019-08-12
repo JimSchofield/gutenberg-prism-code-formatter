@@ -15,4 +15,4 @@ A core/code plugin that extends the core block and highlights syntax with Prism.
 3) Run `npm run watch` to set a watcher
 
 ## TODO
-[ ] Create a deprecated strategy so this will not change the content should this be turned off.
+- [ ] Create a deprecated strategy so this will not change the content should this be turned off.
