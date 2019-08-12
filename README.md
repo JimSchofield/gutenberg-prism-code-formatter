@@ -13,3 +13,6 @@ A core/code plugin that extends the core block and highlights syntax with Prism.
 1) After cloning the repo `npm install`
 2) Run `npm run build` for a simple build
 3) Run `npm run watch` to set a watcher
+
+## TODO
+[ ] Create a deprecated strategy so this will not change the content should this be turned off.
