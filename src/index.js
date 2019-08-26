@@ -30,9 +30,17 @@ import Prism from '../vendor/prism';
 
         const newSettings = {
             ...settings,
+            supports: {
+                ...settings.supports,
+                align: true,
+            },
             attributes: {
                 ...settings.attributes,
                 language: {
+                    type: 'string',
+                    default: 'javascript',
+                },
+                align: {
                     type: 'string',
                 }
             },
@@ -54,15 +62,17 @@ import Prism from '../vendor/prism';
                         <div className="wp-block-code__preview">
                             Preview:
                             <pre className={`language-${language}`}>
-                                <code
-                                    className={`language-${language}`}
-                                    dangerouslySetInnerHTML={
-                                        { 
-                                            __html: Prism.highlight( props.attributes.content, Prism.languages[language], language),
-                                        }   
-                                    }
-                                >
-                                </code>
+                                { content &&
+                                    <code
+                                        className={`language-${language}`}
+                                        dangerouslySetInnerHTML={
+                                            { 
+                                                __html: Prism.highlight( content, Prism.languages[language], language),
+                                            }   
+                                        }
+                                    >
+                                    </code>
+                                }
                             </pre>
                         </div>
                     </div>
@@ -73,18 +83,51 @@ import Prism from '../vendor/prism';
 
                 return (
                     <pre className={`language-${language}`}>
-                        <code
-                            className={`language-${language}`}
-                            dangerouslySetInnerHTML={
-                                { 
-                                    __html: Prism.highlight( props.attributes.content, Prism.languages[language] ),
-                                }   
-                            }
-                        >
-                        </code>
+                        { content &&
+                            <code
+                                className={`language-${language}`}
+                                dangerouslySetInnerHTML={
+                                    { 
+                                        __html: Prism.highlight( content, Prism.languages[language], language),
+                                    }   
+                                }
+                            >
+                            </code>
+                        }
                     </pre>
                 );
-            }
+            },
+            deprecated: [
+                ...( settings.deprecated || [] ),
+                {
+                    attributes: {
+                        ...settings.attributes,
+                        language: {
+                            type: 'string',
+                        },
+                    },
+    
+                    save( props ) {
+                        const { language } = props.attributes || 'javascript';
+
+                        return (
+                            <pre className={`language-${language}`}>
+                                { content &&
+                                    <code
+                                        className={`language-${language}`}
+                                        dangerouslySetInnerHTML={
+                                            { 
+                                                __html: Prism.highlight( content, Prism.languages[language], language),
+                                            }   
+                                        }
+                                    >
+                                    </code>
+                                }
+                            </pre>
+                        );
+                    },
+                },
+            ],
         }
 
         return newSettings;
